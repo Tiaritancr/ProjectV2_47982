@@ -1,0 +1,101 @@
+//Tiara Cosme
+//October 2013
+//Project
+
+//Libraries
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
+const int MAX_GUESS_NUM = 5; //Range of numbers player can guess: (1-5)
+const int MAX_GUESS_TRIES = 2; //Player has three tries to guess
+
+//No Global Constants
+
+//Function Prototypes
+void theInstructions(void);
+
+//Execution Begins Here
+using namespace std;
+int main(int argc, char *argv[])
+{
+	//Declare Variables
+    char choice;
+    int guess;
+	string name;
+    
+    //Welcome the player to the game
+	cout<<"Hello there! What is your name? ";
+	cin>>name;
+	cout<<"Welcome "<<name<<" to LeGuess! Have you ever played against a computer? Y or N?"<<endl;
+	cin>>choice;
+	
+		if (choice=='y'||choice=='Y')
+			cout<<"Well, well, well! In this game, you will compete your guessing strategies with  this machine! Are you ready?"<<endl;
+			
+			else if (choice=='n'||choice=='N')
+			cout<<"Good luck to you then! *suspense background music*"<<endl;
+			
+	cout<<"Let the guessing games begin!"<<endl;	
+    
+	//Instructions Option 
+	cout<<"Would you like to see the instructions? Y or N? ";
+	cin>>choice;
+		if (choice=='y'||choice=='Y')
+			theInstructions();
+			
+	cout<<"You think you are such a smarty-pants huh? We will see about that. Let's play!"<<endl;
+	
+	//Game code	
+    do
+	{
+		//randomize
+		srand(time(NULL));
+		
+		//player's number between zero and MAX_GUESS_NUM
+		int guess_num = rand() % MAX_GUESS_NUM;
+		
+		//Guessing loop
+		int i; 
+		for (i=0;i<MAX_GUESS_TRIES; i++)
+		{
+			cout<<"Number guess "<<i+1<<endl;
+			cin>>guess;
+			
+			//checking the number
+			if(guess<0||guess>MAX_GUESS_NUM)
+			{
+				cout<<"This is the reason why instructions were made...so, read them!"<<endl;
+				continue;
+			}
+			
+			if(guess==guess_num)
+			{
+				cout<<"What?! How did you know?! Nice Work!"<<endl;
+				break;
+			} 
+				else
+				{
+					cout<<"Wrong! You don't stand a chance against the computer >:D "<<endl;
+				}
+			
+			if (i==2)
+				cout<<"The computer was going more for "<<guess_num<<endl;
+		}
+		
+		cout<<"Dare to try again? Y or N";
+		cin>>choice;
+		
+    }while(choice != 'n' && choice != 'N');
+    
+    return 0;
+}
+
+void theInstructions(void)
+{
+	cout<<"These are the instructions for this game: "<<endl;
+	cout<<"In this game, you will be guessing a number between zero and "<<MAX_GUESS_NUM<<endl;
+	cout<<"You will only have "<<MAX_GUESS_TRIES<<" guesses to get the right number."<<endl;
+	cout<<"There are no points in this game because, well, let's face it..the computer will crush you."<<endl;
+	cout<<"Good luck!"<<endl;
+}
